@@ -1,64 +1,37 @@
 "use strict";
 
-function isNumber(number) {
-  return !isNaN(parseFloat(number)) && isFinite(number);
+function rundomNumber () {
+	let randomNumber = Math.floor(Math.random () * 101);
+	if (randomNumber == 0 ) {
+		randomNumber = 1;
+	}
+	console.log (rundomNumber);
+
+	function guessNumber () {
+		let input = prompt("Введите число от 1 до 100");
+
+		if (input < 0 || input > 100 ) {
+			alert("Неверный диапозон");
+			return guessNumber();
+		} 
+		if (isNaN(input) || input.trim() === '') {
+			alert("Введите число!!");
+			return guessNumber();
+		} 
+		else if (input > randomNumber) {
+			alert("Загадонное число меньше");
+			return guessNumber();
+		} 
+		else if (input < randomNumber) {
+			alert("Загадонное число больше");
+			return guessNumber();
+		} 
+		else if (input == randomNumber) {
+			alert("Вы угадали!");
+		} 
+	}
+	guessNumber();
 }
 
 
-function getRandomInner(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function game (regtNumber) {
-
-    if (regtNumber < 0 || regtNumber > 100 || !regtNumber){
-      regtNumber = getRandomInner(0, 100);
-    }
-    console.log(regtNumber);
-    let messagess = ''; //дополнительное сообщение о величине числа(больше - меньше)
-    const getNumber = function (message) {
-        if(!message){
-            message = 'Угадай число от 1 до 100';
-        }
-        let userNumber = getNumberUsers (messagess  +  `\n` +  message);
-        if(userNumber === null){    //если нажата Отмена
-            alert("Игра окончена");
-            return 0;
-        } else if(userNumber === regtNumber) {  //если число угадано
-            alert("Поздравляю, Вы угадали");
-            return 0;
-        } else if (userNumber > regtNumber) {
-            messagess =  "Загаданное число меньше";
-        } else if (userNumber < regtNumber) {
-            messagess = "Загаданное число больше";
-        }
-        getNumber(message);
-    };
-    return getNumber;
-}
-
-let start = game();
-start();
-
-function getNumberItem (trip) {
-  if(trip === null){
-      return true;
-  }
-  if(isNumber(trip)){
-      return true;
-  }
-  return  false;
-}
-
-function getNumberUsers (message, mirkl) {
-  let item = 0;
-  let defaultValueTemp = isNumber(mirkl) ? mirkl : '';
-  item = prompt(message, defaultValueTemp);
-  if (!getNumberItem(item)) {
-    alert("Ведите только цифры!" +  `\n` + message);
-    item = getNumberUsers (message, mirkl);
-  }
-  return item;
-}
-
-
+rundomNumber();
